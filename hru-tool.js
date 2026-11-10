@@ -56,13 +56,17 @@
       if(!sub)throw Error('子流域编号缺失');
       const key=[sub,land,soilId,slopeClass].join(':');
       let group=groups.get(key);
-      if(!group){group={subbasinId:sub,landuseCode:land,soilCode:soilId,slopeClass,cells:0,slopeSum:0,indices:[]};groups.set(key,group)}
-      group.cells++;group.slopeSum+=s;group.indices.push(i);
+      if(!group){group={subbasinId:sub,landuseCode:land,soilCode:soilId,slopeClass,cells:0,slopeSum:0};groups.set(key,group)}
+      group.cells++;group.slopeSum+=s;
     }
     if(missing.length)throw Error(`土地利用或土壤栅格有缺失像元，首个位置：${missing[0].join(', ')}`);
     const hrus=[...groups.values()].sort((a,b)=>a.subbasinId-b.subbasinId||a.landuseCode-b.landuseCode||a.soilCode-b.soilCode||a.slopeClass-b.slopeClass);
     const labels=new Uint32Array(subbasins.mask.length);
-    hrus.forEach((h,index)=>{h.id=index+1;h.areaKm2=h.cells*dem.cellAreaKm2;h.meanSlopePercent=h.slopeSum/h.cells;for(const i of h.indices)labels[i]=h.id;delete h.indices;delete h.slopeSum});
+    hrus.forEach((h,index)=>{h.id=index+1;h.areaKm2=h.cells*dem.cellAreaKm2;h.meanSlopePercent=h.slopeSum/h.cells;delete h.slopeSum});
+    for(let i=0;i<subbasins.mask.length;i++)if(subbasins.mask[i]){
+      const s=slope[i],slopeClass=s<thresholds[0]?1:s<thresholds[1]?2:3;
+      labels[i]=groups.get([subbasins.labels[i],landuse.values[i],soil.values[i],slopeClass].join(':')).id;
+    }
     return{hrus,labels,cellCount:subbasins.cellCount,thresholds:[...thresholds],areaKm2:hrus.reduce((n,h)=>n+h.areaKm2,0)};
   }
   function csv(result){return ['hru_id,subbasin_id,landuse_code,soil_code,slope_class,mean_slope_percent,cells,area_km2',...result.hrus.map(h=>[h.id,h.subbasinId,h.landuseCode,h.soilCode,h.slopeClass,h.meanSlopePercent.toFixed(3),h.cells,h.areaKm2.toFixed(6)].join(','))].join('\n')}
