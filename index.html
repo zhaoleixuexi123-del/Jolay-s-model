@@ -4,22 +4,23 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0b314d">
   <title>澜图水文预报 · 多模型工作台</title>
-  <meta name="description" content="新安江空间建模演示与 HBV、GR4J 逐日降雨径流计算工作台">
+  <meta name="description" content="新安江空间建模、HBV 与 GR4J 逐日计算及分布式网格水量平衡教学工作台">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brandmark">≋</span><span><strong>澜图水文预报</strong><small>HYDRO MODEL WORKSPACE</small></span></div>
-    <nav class="topnav" aria-label="主导航"><button data-view="overview" class="active">方案总览</button><button data-view="spatial">空间建模</button><button data-view="lab">新安江演示</button><button data-view="conceptual">HBV / GR4J</button></nav>
+    <nav class="topnav" aria-label="主导航"><button data-view="overview" class="active">方案总览</button><button data-view="spatial">空间建模</button><button data-view="lab">新安江演示</button><button data-view="conceptual">HBV / GR4J</button><button data-view="grid">网格水量平衡</button></nav>
     <div class="topmeta"><span class="demo-pill">演示工作台</span><span class="userdot">澜</span></div>
   </header>
   <main>
     <section id="overview" class="view active">
       <div class="overview-wrap">
         <div class="intro"><div><p class="kicker">XIN'ANJIANG MODEL / WORKBENCH</p><h1>从流域到预报，逐步构建模型</h1><p>参考实际建模流程，完成空间结构、站点资料、参数设置、率定与结果分析。当前提供可交互的演示项目。</p><div class="intro-actions"><button class="primary" id="startBuild">开始空间建模 <span>↗</span></button><button class="subtle" id="viewSample">查看结果演示</button></div></div><div class="intro-art" aria-hidden="true"><svg viewBox="0 0 420 270"><path d="M45 186 C85 59 162 66 204 101 C247 43 343 66 367 145 C380 203 320 243 262 225 C206 257 97 237 45 186Z" fill="#1d829d" opacity=".34" stroke="#7ee6ea" stroke-width="2"/><path d="M91 120 Q153 130 180 169 T294 190 M206 81 Q216 149 180 169 M327 110 Q300 150 294 190" fill="none" stroke="#9beef0" stroke-width="4" stroke-linecap="round"/><circle cx="294" cy="190" r="7" fill="#ffca83"/><path d="M73 185 Q165 206 205 167 Q266 129 347 170" fill="none" stroke="#78d8e2" stroke-dasharray="4 9" opacity=".6"/></svg></div></div>
-        <div class="section-heading"><div><p class="kicker">MODEL OPTIONS</p><h2>选择水文模型</h2></div><span>新安江空间建模 · HBV 与 GR4J 降雨径流计算</span></div>
+        <div class="section-heading"><div><p class="kicker">MODEL OPTIONS</p><h2>选择水文模型</h2></div><span>新安江空间建模 · HBV 与 GR4J · 网格水量平衡</span></div>
         <div class="model-grid"><button class="model-option active" data-select-model="semi"><span class="model-icon">◫</span><span class="model-tag">方案 A</span><h3>半分布式新安江模型</h3><p>基于 DEM 提取河网与出口，将流域划分为子流域，再按站点资料完成建模。</p><span class="model-foot">子流域划分 · 河道拓扑 · 站点权重 <b>选择方案 →</b></span></button><button class="model-option" data-select-model="distributed"><span class="model-icon">▦</span><span class="model-tag">方案 B</span><h3>分布式新安江模型</h3><p>基于 DEM、出口与河网生成规则网格，可查看网格结构及逐时空间过程。</p><span class="model-foot">网格分辨率 · 参数分区 · 空间播放 <b>选择方案 →</b></span></button></div>
         <div class="model-grid model-grid-extra"><button class="model-option" data-conceptual-model="hbv"><span class="model-icon">◈</span><span class="model-tag">方案 C</span><h3>HBV 降雨径流模型</h3><p>按日计算土壤蓄水、上层与下层水库出流。本版不含积雪和河道滞时模块。</p><span class="model-foot">逐日资料 · 参数调整 · 过程线 <b>进入计算 →</b></span></button><button class="model-option" data-conceptual-model="gr4j"><span class="model-icon">⌁</span><span class="model-tag">方案 D</span><h3>GR4J 降雨径流模型</h3><p>四参数逐日模型，包含产流水库、两条单位线和汇流水库，可导入流域平均资料。</p><span class="model-foot">4 个参数 · 逐日模拟 · 指标计算 <b>进入计算 →</b></span></button></div>
+        <div class="model-grid model-grid-extra"><button class="model-option" data-open-grid><span class="model-icon">▦</span><span class="model-tag">方案 E · 教学版</span><h3>分布式网格水量平衡</h3><p>从 DEM 建立网格，导入逐网格土壤、植被和气象资料，计算每日产流；参考 VIC 输入结构，不等同于完整 VIC。</p><span class="model-foot">DEM 网格 · 土壤植被 · 逐日气象 <b>进入计算 →</b></span></button></div>
         <div class="overview-bottom"><div class="info-card"><span class="info-icon">01</span><div><b>新安江空间建模</b><p>工程 → DEM 与河网 → 出口 → 子流域或网格 → 模型结构</p></div></div><div class="info-card"><span class="info-icon">02</span><div><b>HBV / GR4J 计算</b><p>逐日降雨与潜在蒸发 → 参数设置 → 模拟流量与评价指标</p></div></div><div class="info-card"><span class="info-icon">!</span><div><b>当前范围</b><p>新安江流量页为演示；HBV 与 GR4J 可运行逐日计算，但尚无自动率定和正式预报服务。</p></div></div></div>
       </div>
     </section>
@@ -32,8 +33,10 @@
     </section>
     <section id="lab" class="view"><div class="lab-layout"><aside class="lab-sidebar"><p class="kicker">CALIBRATION & SIMULATION</p><h2>率定与模拟</h2><div class="project-summary"><small>当前方案</small><b id="labModel">半分布式新安江</b><small id="labProject">示例流域预报项目</small></div><div id="labSteps"></div><p class="sidebar-help">无实测数据时仅运行演示计算。演示指标不可用于模型评价。</p></aside><section class="lab-main"><div class="lab-head"><span class="step-counter" id="labCounter">STEP 1 / 4</span><h1 id="labTitle">参数设置</h1><p id="labDesc">配置产流、分水源与汇流的演示参数。</p></div><div id="labContent"></div></section></div></section>
     <section id="conceptual" class="view"><div class="conceptual-wrap"><div class="conceptual-heading"><div><p class="kicker">DAILY RAINFALL–RUNOFF</p><h1>HBV / GR4J 降雨径流计算</h1><p>按流域平均的逐日降雨与潜在蒸发计算出口流量。可先使用合成演示资料，再导入自己的 CSV。</p></div><div class="conceptual-switch" role="group" aria-label="降雨径流模型"><button type="button" data-conceptual-model="hbv">HBV</button><button type="button" data-conceptual-model="gr4j">GR4J</button></div></div><div class="conceptual-layout"><aside class="conceptual-controls"><div id="conceptualControls"></div></aside><div class="conceptual-results" id="conceptualResults"></div></div></div></section>
-  </main><div id="toast" class="toast" role="status" aria-live="polite"></div><script src="./geotiff.js"></script><script src="./dem.js"></script><script src="./dem-subbasins.js"></script><script src="./app.js"></script><script src="./dem-integration.js"></script><script src="./dem-river.js"></script><script src="./dem-shapefile.js"></script><script src="./rainfall-models.js"></script><script src="./project-storage.js"></script><script src="./conceptual-models.js"></script>
+    <section id="grid" class="view"><div class="conceptual-wrap" id="gridWorkbench"></div></section>
+  </main><div id="toast" class="toast" role="status" aria-live="polite"></div><script src="./geotiff.js"></script><script src="./dem.js"></script><script src="./dem-subbasins.js"></script><script src="./app.js"></script><script src="./dem-integration.js"></script><script src="./dem-river.js"></script><script src="./dem-shapefile.js"></script><script src="./rainfall-models.js"></script><script src="./project-storage.js"></script><script src="./conceptual-models.js"></script><script src="./grid-model.js"></script><script src="./grid-workbench.js"></script>
 </body></html>
+
 
 
 

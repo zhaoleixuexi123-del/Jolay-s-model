@@ -1,6 +1,6 @@
 /* Multiple local projects: metadata and original files survive a refresh. */
 (function(){
-  const DB_NAME='lantu-hydro-projects',ACTIVE_KEY='lantu-hydro-active-project',KINDS=['dem','rain','evap','flow','forcing'];
+  const DB_NAME='lantu-hydro-projects',ACTIVE_KEY='lantu-hydro-active-project',KINDS=['dem','rain','evap','flow','forcing','grid_soil','grid_vegetation','grid_forcing'];
   const initialParams={...state.params};
   let db=null,records=[],currentId=null,ready=false,restoring=false,saveTimer=null,writeChain=Promise.resolve(),initPromise;
   const storedFileObjects=new Map(),pendingFiles=new Set();
@@ -92,7 +92,7 @@
       streamGenerated:!!raw.streamGenerated,partitioned:!!raw.partitioned,
       spatialStep:Math.max(0,Math.min(5,Math.floor(number(raw.spatialStep,0)))),
       spatialDone:Array.from({length:6},(_,i)=>!!raw.spatialDone?.[i]),
-      view:['overview','spatial','lab','conceptual'].includes(raw.view)?raw.view:'spatial',
+      view:['overview','spatial','lab','conceptual','grid'].includes(raw.view)?raw.view:'spatial',
       labStep:Math.max(0,Math.min(3,Math.floor(number(raw.labStep,0)))),
       calibrated:!!raw.calibrated,simulated:!!raw.simulated,metric:String(raw.metric||'NSE'),
       params:Object.fromEntries(Object.keys(initialParams).map(k=>[k,number(raw.params?.[k],initialParams[k])])),
@@ -241,3 +241,4 @@
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&ready)saveNow().catch(()=>{})});
   initPromise=initialize();
 })();
+
