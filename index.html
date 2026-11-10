@@ -6,6 +6,7 @@
   <title>澜图水文预报 · 多模型工作台</title>
   <meta name="description" content="新安江空间建模、HBV 与 GR4J 逐日计算及分布式网格水量平衡教学工作台">
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./swat-workbench.css">
 </head>
 <body>
   <header class="topbar">
@@ -35,7 +36,7 @@
     <section id="conceptual" class="view"><div class="conceptual-wrap"><div class="conceptual-heading"><div><p class="kicker">DAILY RAINFALL–RUNOFF</p><h1>HBV / GR4J 降雨径流计算</h1><p>按流域平均的逐日降雨与潜在蒸发计算出口流量。可先使用合成演示资料，再导入自己的 CSV。</p></div><div class="conceptual-switch" role="group" aria-label="降雨径流模型"><button type="button" data-conceptual-model="hbv">HBV</button><button type="button" data-conceptual-model="gr4j">GR4J</button></div></div><div class="conceptual-layout"><aside class="conceptual-controls"><div id="conceptualControls"></div></aside><div class="conceptual-results" id="conceptualResults"></div></div></div></section>
     <section id="grid" class="view"><div class="conceptual-wrap" id="gridWorkbench"></div></section>
   </main><div id="toast" class="toast" role="status" aria-live="polite"></div><script src="./geotiff.js"></script><script src="./dem.js"></script><script src="./dem-subbasins.js"></script><script src="./app.js"></script><script src="./dem-integration.js"></script><script src="./dem-river.js"></script><script src="./dem-shapefile.js"></script><script src="./rainfall-models.js"></script><script src="./project-storage.js"></script><script src="./conceptual-models.js"></script><script src="./grid-model.js"></script><script src="./grid-workbench.js"></script>
-</body></html>
+<script src="./hru-tool.js"></script><script src="./swat-workbench.js"></script></body></html>
 
 
 
